@@ -1,0 +1,258 @@
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+
+public class GUIFrame extends JFrame
+{
+
+	
+		private Container pane;
+		private JLabel label;
+		private String currPlayer;
+		private boolean win;
+		private JButton[][] board;
+		private JMenuBar bar;
+		private JMenu menu1;
+		private JMenu menu2;
+		private JMenu menu3;
+		private JMenuItem item1;
+		private JMenuItem item2;
+		private JMenuItem item3;
+		private JMenuItem item4;
+		private JMenuItem item5;
+		private JMenuItem item6;
+		private JMenuItem item7;
+		private JMenuItem item8;
+		private JMenuItem item9;
+		
+		
+		public GUIFrame()
+		{
+			super();
+			currPlayer = "X";
+			pane = getContentPane();
+			
+			setVisible(true);
+			//panel = new JPanel();
+			//panel.setTitle("Tic Tac Toe Game!");
+			pane.setLayout(new GridLayout(3,3));
+			setBackground(Color.blue);
+			
+//			label = new JLabel();
+//			
+//			label.setText("Welcome to the tic tac toe game");
+//			
+			//pane.add(label);
+			board = new JButton[3][3];
+			setSize(400,400);
+			//setResizable(false);
+			//panel.setResizable(false);
+			//setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			win = false;
+			initializeBoard();
+			initializeBar();
+			
+		}
+		
+
+		private void initializeBar() 
+		{
+			bar = new JMenuBar();
+			menu1 = new JMenu("Options");
+			menu2 = new JMenu("Change size");
+			menu3 = new JMenu("Change color");
+			
+			item1 = new JMenuItem("New Game");
+			item1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) 
+				{
+					resetBoard();
+				}
+				
+			});
+			item2 = new JMenuItem("Reset");
+			item2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) 
+				{
+					System.exit(0);
+				}
+			});
+			item3 = new JMenuItem("700 x 700");
+			item3.addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					setSize(700,700);
+				}
+				
+			});
+			item4 = new JMenuItem("800 x 800");
+			item4.addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					setSize(800,800);
+				}
+				
+			});
+			item5 = new JMenuItem("900 x 900");
+			item5.addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					setSize(900,900);
+				}
+				
+			});
+			
+			item6 = new JMenuItem("Change color");
+			item6.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) 
+				{
+					setBackground(Color.red);
+				}
+				
+			});
+			
+			
+			
+			
+			
+			
+			
+			menu1.add(item1);
+			menu1.add(item2);
+			
+			menu2.add(item3);
+			menu2.add(item4);
+			menu2.add(item5);
+			
+			menu1.add(item6);
+			
+			
+			menu1.add(menu2);
+			
+			bar.add(menu1);
+			
+			setJMenuBar(bar);
+			
+		}
+
+
+//		private void setJMenuBar(JMenuBar bar2) {
+//			// TODO Auto-generated method stub
+//			panel.add(bar2);
+//		}
+
+
+		private void resetBoard() 
+		{
+			currPlayer = "X";
+			win = false;
+			for(int i = 0; i<board.length; i++) 
+			{
+				for(int j = 0; j<board[0].length; j++) 
+				{
+					board[i][j].setText("");
+					
+				}
+			}
+			
+		}
+	
+		private void initializeBoard() 
+		{
+			for(int i = 0; i<board.length; i++) 
+			{
+				for(int j = 0; j<board[0].length; j++) 
+				{
+					JButton button = new JButton();
+					button.setFont(new Font("Sans Serif", Font.BOLD, 80));
+					board[i][j] = button;
+					button.addActionListener(new ActionListener() 
+					{
+						@Override
+						public void actionPerformed(ActionEvent e) 
+						{
+							if(((JButton)e.getSource()).getText().equals("") && win == false)
+							{
+								button.setText(currPlayer);
+								hasWinner();
+								togglePlayer();
+							}
+						}
+						
+					});
+					pane.add(button);
+				}
+			}
+			
+		}
+		
+		private void togglePlayer() 
+		{
+			if(currPlayer.equals("X")) 
+			{
+				currPlayer = "O";
+			}
+			else {
+				currPlayer = "X";
+			}
+			
+		}
+				
+		private void hasWinner() 
+		{
+			if(board[0][0].getText().equals(currPlayer) && board[0][1].getText().contentEquals(currPlayer) && board[0][2].getText().contentEquals(currPlayer)) {
+				JOptionPane.showMessageDialog(null, "Player " + currPlayer + " has won the game!");
+				win = true;
+			}
+			if(board[1][0].getText().equals(currPlayer) && board[1][1].getText().contentEquals(currPlayer) && board[1][2].getText().contentEquals(currPlayer)) {
+				JOptionPane.showMessageDialog(null, "Player " + currPlayer + " has won the game!");
+				win = true;
+			}
+			if(board[2][0].getText().equals(currPlayer) && board[2][1].getText().contentEquals(currPlayer) && board[2][2].getText().contentEquals(currPlayer)) {
+				JOptionPane.showMessageDialog(null, "Player " + currPlayer + " has won the game!");
+				win = true;
+			}
+			if(board[0][0].getText().equals(currPlayer) && board[1][0].getText().contentEquals(currPlayer) && board[2][0].getText().contentEquals(currPlayer)) {
+				JOptionPane.showMessageDialog(null, "Player " + currPlayer + " has won the game!");
+				win = true;
+			}
+			if(board[0][1].getText().equals(currPlayer) && board[1][1].getText().contentEquals(currPlayer) && board[2][1].getText().contentEquals(currPlayer)) {
+				JOptionPane.showMessageDialog(null, "Player " + currPlayer + " has won the game!");
+				win = true;
+			}
+			if(board[0][2].getText().equals(currPlayer) && board[1][2].getText().contentEquals(currPlayer) && board[2][2].getText().contentEquals(currPlayer)) {
+				JOptionPane.showMessageDialog(null, "Player " + currPlayer + " has won the game!");
+				win = true;
+			}
+			if(board[0][0].getText().equals(currPlayer) && board[1][1].getText().contentEquals(currPlayer) && board[2][2].getText().contentEquals(currPlayer)) {
+				JOptionPane.showMessageDialog(null, "Player " + currPlayer + " has won the game!");
+				win = true;
+			}
+			if(board[2][0].getText().equals(currPlayer) && board[1][1].getText().contentEquals(currPlayer) && board[0][2].getText().contentEquals(currPlayer)) {
+				JOptionPane.showMessageDialog(null, "Player " + currPlayer + " has won the game!");
+				win = true;
+			}
+			if( !(board[0][0].getText().isEmpty())  && !(board[0][1].getText().isEmpty()) && !(board[0][2].getText().isEmpty()) && !(board[1][0].getText().isEmpty()) && !(board[1][1].getText().isEmpty()) && !(board[1][2].getText().isEmpty()) && !(board[2][0].getText().isEmpty()) && !(board[2][1].getText().isEmpty()) && !(board[2][2].getText().isEmpty()))
+			{
+				JOptionPane.showMessageDialog(null, "It's a tie!");
+				win = true;
+			}
+		}
+	}
