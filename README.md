@@ -4,7 +4,7 @@
 - 💞️ I’m looking to collaborate on GitHub
 - 📫 How to reach me --> Messages!
 
-- This is a simple Tic-Tac-Toe game that I developed using various Java GUI toolkits/frameworks such as Swing and AWT (Abtract Window Toolkit). I used Eclipse IDE for this project! Check it out if you're interested!
+- This is a simple Tic-Tac-Toe game that I developed using various Java GUI toolkits/frameworks such as Swing and AWT (Abstract Window Toolkit). I used Eclipse IDE for this project! Check it out if you're interested!
 
 <!---
 exa2022/exa2022 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
